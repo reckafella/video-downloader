@@ -1,0 +1,35 @@
+{% extends "downloader/base.html" %}
+
+{% load static %}
+
+{% block title %}Video Downloader{% endblock %}
+
+    {% block content %}
+    <h1>Downloaders</h1>
+    <div class="card-container">
+        <div class="card">
+            <img src="{% static 'images/sites/youtube.png' %}" alt="YouTube">
+            <h2>YouTube Downloader</h2>
+            <p>Download videos and audio from YouTube easily.</p>
+            <a href="{% url 'youtube_url_handler' %}" class="btn">Go to YouTube Downloader</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/sites/tiktok.png' %}" alt="TikTok">
+            <h2>TikTok Downloader</h2>
+            <p>Save your favorite TikTok videos.</p>
+            <a href="#" class="btn">Go to TikTok Downloader</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/sites/twitter.png' %}" alt="Twitter">
+            <h2>Twitter(X) Downloader</h2>
+            <p>Download videos from Twitter.</p>
+            <a href="#" class="btn">Go to Twitter(X) Downloader</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/sites/facebook.png' %}" alt="Facebook">
+            <h2>Facebook Downloader</h2>
+            <p>Save videos from Facebook to your device.</p>
+            <a href="#" class="btn">Go to Facebook Downloader</a>
+        </div>
+    </div>
+    {% endblock %}

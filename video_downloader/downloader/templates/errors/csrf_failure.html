@@ -1,0 +1,11 @@
+{% extends "downloader/base.html" %}
+{% load static %}
+
+{% block title %}CSRF Verification Failed {% endblock %}
+
+{% block content %}
+    <h1>CSRF Verification Failed</h1>
+    <p>Sorry, your request could not be processed. Please try again.</p>
+    <p>Reason: {{reason }}</p>
+    <p>Go back to <a href="{% url 'logout' %}">LOGOUT</a></p>
+{% endblock %}

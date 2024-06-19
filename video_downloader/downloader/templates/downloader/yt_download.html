@@ -1,0 +1,23 @@
+{% extends "downloader/base.html" %}
+
+{% block title %}YouTube Downloader | {{ title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <section id="downloads">
+        <img class="thumbnail" src="{{ thumbnail_url }}", alt="thumbnail url">
+        <ul class="download_options">
+            {% for itag, description in choices %}
+                <li>
+                    {{ description }}
+                    <form method="post" >
+                        {% csrf_token %}
+                        <input type="hidden" name="itag" value="{{ itag }}">
+                        <button type="submit">Download</button>
+                    </form>
+                </li>
+                {% endfor %}
+        </ul>
+    </section>
+    
+{% endblock %}

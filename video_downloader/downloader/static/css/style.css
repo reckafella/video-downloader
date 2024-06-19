@@ -1,0 +1,147 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header and navigation styling */
+header {
+    background-color: #333;
+    color: #fff;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1em;
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+/* Main content styling */
+main {
+    padding: 1em;
+}
+
+section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+section img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    margin: 10px;
+}
+
+.download_options {
+    display: inline;
+    justify-content: space-between;
+    margin: 1em 0;
+    list-style-type: none;
+    color: rgb(186, 2, 2);
+}
+
+.download_options li {
+    color: rgb(2, 7, 60);
+    background-color: rgb(157, 168, 139);
+    display: flex;
+    justify-content: space-between;
+    margin: 3px 1em;
+    padding: 0.2em 0.5em;
+
+}
+
+button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 0.3em 0.8em;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Thumbnail styling */
+.thumbnail {
+    width: 250px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .nav-header {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-menu.expanded {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin: 0.1em 0;
+    }
+}
