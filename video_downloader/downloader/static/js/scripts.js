@@ -1,26 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
+    const content = document.querySelector('.content');
 
     navToggle.addEventListener('click', function() {
         navMenu.classList.toggle('expanded');
+        content.classList.toggle('menu-open');
     });
 });
-/* 
-function toggleMenu() {
-    const navMenu = document.querySelector('.nav-menu');
-    const content = document.querySelector('.content');
-    navMenu.classList.toggle('active');
-    content.classList.toggle('menu-open');
-} */
 
 document.addEventListener('DOMContentLoaded', function() {
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const content = document.querySelector('.content');
+    const accountsToggle = document.getElementById('profile-pic');
+    const userMenuContent = document.querySelector('.user-menu-content');
 
-    navToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        content.classList.toggle('menu-open');
+    accountsToggle.addEventListener('click', function() {
+        userMenuContent.classList.toggle('active');
     });
 });

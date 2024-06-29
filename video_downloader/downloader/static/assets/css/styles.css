@@ -1,0 +1,122 @@
+
+/*--------------------------------------------------------------
+# Downloaders
+--------------------------------------------------------------*/
+.downloader .member, .signup, .edit-profile {
+    position: relative;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    background: #d1cece;
+  }
+
+  .downloader .member .pic {
+    overflow: hidden;
+    width: 150px;
+    border-radius: 50%;
+  }
+
+  .downloader .member .pic img {
+    transition: ease-in-out 0.3s;
+  }
+
+  .downloader .member:hover img {
+    transform: scale(1.1);
+  }
+
+  .downloader .member .member-info {
+    padding-left: 30px;
+  }
+
+  .downloader .member h4 {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #05579e;
+  }
+
+  .downloader .member span {
+    display: block;
+    font-size: 15px;
+    padding-bottom: 10px;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .downloader .member span::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: #bfe0fd;
+    bottom: 0;
+    left: 0;
+  }
+
+  .downloader .member p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+}
+.btn-wrap {
+    margin: 20px -20px -20px -20px;
+    padding: 20px 15px;
+    background: inherit;
+    text-align: center;
+}
+
+/*   .btn-download {
+    background: #0880e8;
+    display: inline-block;
+    padding: 8px 35px 10px 35px;
+    border-radius: 20px;
+    color: #fff;
+    transition: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+  .btn-download:hover {
+    background: #ef7b06;
+} */
+
+  .signup {
+    background-color: aqua;
+}
+
+
+button[type=submit], .btn-download {
+  border: 0;
+  padding: 10px 32px;
+  color: #0880e8;
+  transition: 0.4s;
+  border-radius: 50px;
+  border: 2px solid #0880e8;
+  background: #fff;
+}
+
+button[type=submit]:hover, .btn-download:hover {
+  background: #0880e8;
+  color: #fff;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  color: #050606;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.btn-logout:hover {
+  color: #0056b3;
+  text-decoration: none;
+}

@@ -5,31 +5,144 @@
 {% block title %}Video Downloader{% endblock %}
 
     {% block content %}
-    <h1>Downloaders</h1>
-    <div class="card-container">
-        <div class="card">
-            <img src="{% static 'images/sites/youtube.png' %}" alt="YouTube">
-            <h2>YouTube Downloader</h2>
-            <p>Download videos and audio from YouTube easily.</p>
-            <a href="{% url 'youtube_url_handler' %}" class="btn">Go to YouTube Downloader</a>
+    <section id="downloader" class="downloader section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>Select Downloader</h2>
+                <p>Select the Downloader you would like to use today!</p>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-6 col-lg-6 mt-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member d-flex align-items-start">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/youtube-icon.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>YouTube Downloader</h4>
+                            <p>Download videos and audio from YouTube.</p>
+                            <div class="btn-wrap">
+                                <a href="{% url 'youtube_url_handler' %}" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mt-4">
+                    <div class="member d-flex align-items-start" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/tiktok-icon.webp' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>TikTok Downloader</h4>
+                            <p>Save your favorite TikTok videos.</p>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mt-4">
+                    <div class="member d-flex align-items-start" data-aos="fade-up" data-aos-delay="300">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/twitter.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>Twitter (X) Downloader</h4>
+                            <p>Download videos from Twitter (X).</p>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mt-4">
+                    <div class="member d-flex align-items-start" data-aos="fade-up" data-aos-delay="400">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/facebook.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>Facebook Downloader</h4>
+                            <p>Save videos from Facebook to your device.</p>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <img src="{% static 'images/sites/tiktok.png' %}" alt="TikTok">
-            <h2>TikTok Downloader</h2>
-            <p>Save your favorite TikTok videos.</p>
-            <a href="#" class="btn">Go to TikTok Downloader</a>
-        </div>
-        <div class="card">
-            <img src="{% static 'images/sites/twitter.png' %}" alt="Twitter">
-            <h2>Twitter(X) Downloader</h2>
-            <p>Download videos from Twitter.</p>
-            <a href="#" class="btn">Go to Twitter(X) Downloader</a>
-        </div>
-        <div class="card">
-            <img src="{% static 'images/sites/facebook.png' %}" alt="Facebook">
-            <h2>Facebook Downloader</h2>
-            <p>Save videos from Facebook to your device.</p>
-            <a href="#" class="btn">Go to Facebook Downloader</a>
-        </div>
-    </div>
+    </section>
+    
     {% endblock %}
+
+{% comment %}
+
+    <section id="icon-boxes" class="icon-boxes">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2 class="title">Select Downloader</h2>
+                <p class="description">Select the Downloader you would like to use today!</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member d-flex align-items-start icon-box">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/youtube.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>YouTube Downloader</h4>
+                            <p class="description">Download videos and audio from YouTube easily.</p>
+                            <div class="btn-wrap">
+                                <a href="{% url 'youtube_url_handler' %}" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="member d-flex align-items-start icon-box" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/tiktok.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>TikTok Downloader</h4>
+                            <p class="description">Save your favorite TikTok videos.</p>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="member d-flex align-items-start icon-box" data-aos="fade-up" data-aos-delay="300">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/twitter.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>X Downloader</h4>
+                            <p class="description">Download videos from Twitter (X).</p>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="member d-flex align-items-start icon-box" data-aos="fade-up" data-aos-delay="400">
+                        <div class="pic">
+                            <img src="{% static 'assets/sites/facebook.png' %}" alt="" class="img-fluid">
+                        </div>
+                        <div class="member-info">
+                            <h4>Facebook Downloader</h4>
+                            <p class="description">Save videos from Facebook to your device.</p>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-download">Start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endcomment %}

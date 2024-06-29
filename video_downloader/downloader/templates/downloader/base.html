@@ -2,60 +2,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}Video Downloader{% endblock %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <link rel="icon" href="{% static 'images/icons/favicon.ico' %}" type="image/x-icon">
+    <title>Video Downloader | {% block title %} Base {% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="shortcut icon" href="{% static 'assets/icons/favicon.ico' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'assets/icons/favicon.jpeg' %}">
 
+    <!-- Fonts -->
+    
+    <!-- <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin> -->
+    <!--
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    -->
+
+    <!-- To be removed later -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
+
+    <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
 </head>
-<body>
-    <div class="wrapper">
-        <header>
-            <nav class="nav-container">
-                <div class="nav-header">
-                    <button class="nav-toggle" id="nav-toggle">
-                        &#9776;
-                    </button>
-                    <ul class="nav-menu" id="nav-menu">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'youtube_url_handler' %}">YouTube</a></li>
-                        <li><a href="#">TikTok</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Facebook</a></li>
-                        <ul class="user">User
-                            {% if user.is_authenticated %}
+<body class="index-page">
+    <header id="header" class="header d-flex align-items-center sticky-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <!-- Logo and Site name -->
+            <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+                
+                {% if user.is_authenticated %}
+                <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid rounded-circle">
+                {% else %}
+                <img src="{% static 'assets/default.png' %}" alt="Profile Picture" class="img-fluid rounded-circle">
+                {% endif %}
+                <h1 class="sitename">Video Downloader</h1>
+            </a> 
+
+            <!-- Navigation Menu -->
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="active"><span>Home</span></a></li>
+                    <li><a href="{% url 'about' %}"><span>About</span></a></li>
+                    <li><a href="{% url 'contact' %}"><span>Contact</span></a></li>
+                    <li class="dropdown">
+                        <a href="#"><span>Downloader</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a class="btn btn-light btn-logout text-start" href="{% url 'youtube_url_handler' %}"><span>YouTube</span></a></li>
+                            <li><a class="btn btn-light btn-logout text-start" href="#"><span>Twitter</span></a></li>
+                            <li><a class="btn btn-light btn-logout text-start" href="#"><span>TikTok</span></a></li>
+                            <li><a class="btn btn-light btn-logout text-start" href="#"><span>Facebook</span></a></li>
+                            <li><a class="btn btn-light btn-logout text-start" href="#"><span>Download History</span></a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="dropdown"><a href="#"><span>Profile</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a class="btn btn-light btn-logout text-start" href="{% url 'view_profile' %}"><span>View Profile</span></a></li>
+                            <li><a class="btn btn-light btn-logout text-start" href="{% url 'edit_profile' %}"><span>Edit Profile</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"><span>Account</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
                             <li>
-                                <form method="post" action="{% url 'logout' %}">
+                                <a class="btn btn-light btn-logout text-start" href="{% url 'change_password' %}">
+                                    <span>Change Password</span>
+                                </a>
+                            </li>
+                            <li>
+                                <form action="{% url 'logout' %}" method="post" class="">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-link">LOGOUT</button>
+                                    <input type="submit" class="btn btn-light btn-logout text-start" style="padding-left: 20px;" value="Logout"/>
                                 </form>
                             </li>
-                            {% else %}
-                                <form method="post" action="{% url 'signup' %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-link">SIGNUP</button>
-                                </form>
-                                <form method="post" action="{% url 'login' %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-link">LOGIN</button>
-                                </form>
-                            {% endif %}
                         </ul>
-                    </ul>
-                </div>
+                    </li>
+                    {% else %}
+                    <li class="dropdown">
+                        <a href="#">
+                            <span>Account</span>
+                            <i class="bi bi-chevron-down toggle-dropdown"></i>
+                        </a>
+                        <ul>
+                            <li><a href="{% url 'login' %}"><span> Login</span></a></li>
+                            <li><a href="{% url 'signup' %}"><span> Signup</span></a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+                <i class="header-toggle mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-        </header>
+        </div>
+    </header>
+    <main class="main">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer id="footer" class="footer position-relative">
+        <div class="container">
+            <div class="copyright text-center">
+                <p>
+                    &copy;
+                    <span>Copyright</span>
+                    <strong class="sitename">Video Downloader</strong>
+                    <span>All Rights Reserved</span>
+                </p>
+            </div>
+            <div class="social-links d-flex justify-content-center">
+                <a href="https://x.com/devrohn" target="_blank" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                <a href="https://facebook.com/reckafella" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
+                <a href="https://instagram.com/reckafella" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://linkedin.com/" class="linkedin" target="_blank"><i class="bi bi-linkedin"></i></a>
+            </div>
+            <div class="credits">
+                Designed by <a href="https://x.com/devrohn" target="_blank" rel="noopener noreferrer">DevRohn</a>
+            </div>
+        </div>
+    </footer>
 
-        <main class="content">
-            {% block content %}
-            {% endblock %}
-        </main>
 
-        <footer>
-            <p>&copy; 2024 Downloader Application</p>
-        </footer>
-    </div>
-    <script src="{% static 'js/scripts.js' %}"></script>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/typed.js/typed.umd.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
 </body>
 </html>

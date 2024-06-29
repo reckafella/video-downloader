@@ -1,0 +1,19 @@
+{% extends "downloader/base.html" %}
+{% load static %}
+
+{% block title %}Download History{% endblock %}
+
+{% block content %}
+    <div class="card-container responsive-card-container">
+        <div class="card responsive-card">
+            <h2>Download History</h2>
+            <ul>
+                {% for download in downloads %}
+                    <li>
+                        <a href="{{ download.url }}">{{ download.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

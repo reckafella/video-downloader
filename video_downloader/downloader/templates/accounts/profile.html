@@ -1,0 +1,46 @@
+<!-- templates/downloader/profile.html -->
+{% extends "downloader/base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<section id="profile" class="profile section">
+  <div class="mask d-flex align-items-center gradient-custom-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+                <div class="section-title">
+                    <h2 class="mb-0">User Profile</h2>
+                </div>
+                <div class="d-flex row justify-content-center text-muted"  data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center text-muted" style="max-width: 100px; max-height: 100px;">
+                        <div class="logo align-items-center">
+                            {% if user.profile.profile_pic %}
+                            <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid rounded rounded-circle">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="text-center text-muted mt-4 mb-1"  data-aos="fade-up" data-aos-delay="300">
+                        </ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">Username: <span class="">{{ user.username }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">Email: <span class="">{{ user.email }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">First Name: <span class="">{{ user.first_name }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">Last Name: <span class="">{{ user.last_name }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">Gender: <span class="">{{ user.profile.gender }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">Date of Birth: <span class="">{{ user.profile.dob }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">Country: <span class="">{{ user.profile.country}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center text-muted mt-4 mb-1"  data-aos="fade-up" data-aos-delay="400">
+                    <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Profile</a>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

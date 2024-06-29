@@ -1,0 +1,36 @@
+{% extends "downloader/base.html" %}
+
+{% block title %}YouTube Downloader{% endblock %}
+
+{% block content %}
+  
+
+<section id="profile" class="profile section bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+                <div class="section-title">
+                    <h2 class="mb-0">Download YouTube Videos</h2>
+                </div>
+                <form method="post" action="{% url 'youtube_url_handler' %}" class="d-flex card">
+                    {% csrf_token %}
+                    <ul class="list-group">
+                        <li class="d-flex list-group-item justify-content-between align-items-start">
+                            {{ form.url }} <span><button type="submit" class="btn-light btn">Download</button></span>
+                        </li>
+                    </ul>
+                    
+                </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
