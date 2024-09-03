@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('downloader.urls'), name='downloader'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('downloader.urls'), name='downloader'),
 ]
 
 if settings.DEBUG:

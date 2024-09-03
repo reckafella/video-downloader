@@ -3,12 +3,14 @@ from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from pytube import YouTube
 from django.contrib import messages
-from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 import io
 
-from .forms import UserAuthForm, DownloadURLForm, UserPasswordChangeForm
+from .forms import DownloadURLForm, UserPasswordChangeForm
 from .forms import EmailForm, CodeForm, NewPasswordForm, ProfileUpdateForm, UserRegistrationForm
 from .models import PasswordResetCode
 from .passwords import PasswordReset
@@ -39,9 +41,9 @@ def signup_view(request):
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists')
+                messages.info(request, 'Username already exists')
             elif User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already exists')
+                messages.info(request, 'Email already exists')
             else:
                 user = form.save(commit=False)
                 user.email = email
@@ -59,7 +61,7 @@ def signup_view(request):
         'submit_text': 'Signup',
         'extra_messages': [{'text': 'Already have an account? ', 'url': reverse_lazy('login'), 'link_text': 'Login'}]
     }
-    return render(request, 'registration/login.html', context)
+    return render(request, 'registration/signup.html', context)
 
 
 
@@ -69,27 +71,31 @@ def login_view(request):
         return redirect('home')
 
     if request.method == 'POST':
-        form = UserAuthForm(request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request, f'Hi {user.username}, Welcome!')
-            return redirect('home')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+            if not user.check_password(password):
+                raise User.DoesNotExist
+        except User.DoesNotExist:
+            messages.error(request, 'Invalid username or password.')
+        
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                messages.success(request, f'Hi {user.username}, Welcome!')
+                return redirect('home')
+            else:
+                messages.error(request, 'Disabled account!')
         else:
             messages.error(request, 'Invalid username or password.')
     else:
-        form = UserAuthForm()
+        pass
 
-    context = {
-        'form': form,
-        'page_title': 'Sign in to your Account',
-        'form_title': 'Sign in',
-        'submit_text': 'Login',
-        'extra_messages': [
-            {'text': 'Forgot Password? ', 'url': reverse('request_reset'), 'link_text': 'Reset Password'},
-            {'text': "Don't have an account? ", 'url': reverse('signup'), 'link_text': 'Signup'}]
-    }
-    return render(request, 'registration/login.html', context)
+    return render(request, 'registration/login.html')
+
 
 def logout_view(request):
     """View to handle user logout"""
@@ -200,7 +206,16 @@ def edit_profile(request):
             return redirect('view_profile')
     else:
         form = ProfileUpdateForm(instance=request.user.profile, user=request.user)
-    return render(request, 'accounts/edit-profile.html', {'form': form})
+    
+    context = {
+        'form': form,
+        'page_title': 'Edit your Profile',
+        'form_title': 'Edit Profile',
+        'submit_text': 'Save Changes',
+        'extra_messages': [
+            {'text': "Go back to your ", 'url': reverse_lazy('view_profile'), 'link_text': 'Profile'}]
+    }
+    return render(request, 'accounts/edit-profile.html', context)
 
 
 @login_required
@@ -224,7 +239,7 @@ def password_change(request):
         'submit_text': 'Save Changes',
         'extra_messages': [{'text': 'Cancel Process? ', 'url': reverse('home'), 'link_text': 'Home'}]
     }
-    return render(request, 'registration/login.html', context)
+    return render(request, 'registration/reset-password.html', context)
 
 
 def csrf_failure(request, reason=""):

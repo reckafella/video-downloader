@@ -1,5 +1,7 @@
 {% extends "downloader/base.html" %}
 
+{% block title %}{{ page_title }}{% endblock %}
+
 {% block content %}
 
 <section id="profile" class="profile section bg-image"
@@ -11,16 +13,22 @@
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-5">
                 <div class="section-title">
-                    <h2 class="mb-0">Create Account</h2>
+                    <h2 class="mb-0">{{form_title }}</h2>
                 </div>
               <form method="post" enctype="multipart/form-data" class="form-control form-group" action="{% url 'edit_profile' %}">
                 {% csrf_token %}
-                {{ form.as_p }}  
+                {% for field in form %}
+                  <p class="fst">
+                    {{ field.label_tag }} {{ field }}
+                  </p>
+                {% endfor %}
                 <div class="text-center">
-                    <button type="submit">Save Changes</button>
+                    <button type="submit">{{ submit_text }}</button>
                 </div>
                 <div class="text-center text-muted mt-4 mb-1">
-                    <p>Go Back to <a href="{% url 'view_profile' %}">Profile</a></p>
+                  {% for message in extra_messages %}
+                      <p>{{ message.text }} <a href="{{ message.url }}">{{ message.link_text }}</a></p>
+                  {% endfor %}
                 </div>
             </form>
 

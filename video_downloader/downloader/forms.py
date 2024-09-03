@@ -42,13 +42,11 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Last Name'})
     )
     password1 = forms.CharField(
-        label='Password',
-        required=True,
+        label='Password', required=True, min_length=8, max_length=60,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'form3Example4cg', 'placeholder': 'Enter Password'}, render_value=True)
     )
     password2 = forms.CharField(
-        label='Confirm Password',
-        required=True,
+        label='Confirm Password', required=True, min_length=8, max_length=60,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'form3Example4cg', 'placeholder': 'Confirm Password'}, render_value=True)
     )
     dob = forms.DateField(
@@ -140,7 +138,7 @@ class ProfileUpdateForm(forms.ModelForm):
                              max_length=30,
                              widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    password1 = forms.CharField(label='Password',
+    """ password1 = forms.CharField(label='Password',
                              required=False,
                              widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                'id': 'form3Example4cg'}))
@@ -148,7 +146,7 @@ class ProfileUpdateForm(forms.ModelForm):
     password2 = forms.CharField(label='Confirm Password',
                              required=False,
                              widget=forms.PasswordInput(attrs={'class': 'form-control',
-                                                               'id': 'form3Example4cg'}))
+                                                               'id': 'form3Example4cg'})) """
 
     dob = forms.DateField(label='Date of Birth',
                           required=False,
@@ -171,7 +169,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'bio', 'dob', 'country', 'gender', 'profile_pic')
+        fields = ('username', 'email', 'first_name', 'last_name', 'bio', 'dob', 'country', 'gender', 'profile_pic')
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -191,7 +189,7 @@ class ProfileUpdateForm(forms.ModelForm):
         self.user.profile.country = self.cleaned_data['country']
         self.user.profile.gender = self.cleaned_data['gender']
 
-        if 'profile_pic' in self.cleaned_data and self.cleaned_data['profile_pic']:
+        if 'profile_pic' in self.changed_data and self.cleaned_data['profile_pic']:
             self.user.profile.profile_pic = self.cleaned_data['profile_pic']
 
         if commit:
@@ -209,74 +207,10 @@ class EmailForm(forms.Form):
                                  attrs={'class': 'form-control'}))
 
 
-class UserAuthForm(forms.Form):
-    username = UsernameField(required=True,
-                             label='Username:',
-                             max_length=30,
-                             widget=forms.TextInput(
-                                 attrs={'class': 'form-control'}))
-
-    password = forms.CharField(label='Password',
-                               required=True,
-                               widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
-    def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-
-        if username and password:
-            self.user_cache = authenticate(self.request, username=username, password=password)
-            if self.user_cache is None:
-                raise forms.ValidationError("Invalid username or password.")
-            else:
-                self.confirm_login_allowed(self.user_cache)
-
-        return self.cleaned_data
-
-    def get_user(self):
-        return self.user_cache
-
-    def confirm_login_allowed(self, user):
-        if not user.is_active:
-            raise forms.ValidationError("This account is inactive.")
-
-
-class LoginForm(AuthenticationForm):
-    """ Class providing way to pass login credentials to the view"""
-    def __init__(self, request: Any = ..., *args: Any, **kwargs: Any) -> None:
-        super().__init__(request, *args, **kwargs)
-
-    username = UsernameField(required=True,
-                             label='Username:',
-                             max_length=30,
-                             widget=forms.TextInput(
-                                 attrs={'class': 'form-control'}))
-
-    password = forms.CharField(label='Password',
-                               required=True,
-                               widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-
-    def clean(self, *args, **kwargs):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-
-        if username and password:
-            user = authenticate(self.request, username=username, password=password)
-
-            if user is None:
-                raise forms.ValidationError('Invalid username or password')
-        else:
-            raise forms.ValidationError('Username and password are required')
-
-        return super(LoginForm, self).clean(*args, **kwargs)
-
-
 class CodeForm(forms.Form):
     code = forms.CharField(required=True,
                             label='Reset Code:',
+                            min_length=6,
                             max_length=6,
                             widget=forms.TextInput(
                                 attrs={'class': 'form-control'}))
@@ -284,17 +218,23 @@ class CodeForm(forms.Form):
 
 class NewPasswordForm(forms.Form):
     new_password =forms.CharField(label='New Password',
+                                  required=True, min_length=8, max_length=60,
                                   widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     confirm_new_password = forms.CharField(label='Confirm New Password',
+                                           required=True, min_length=8, max_length=60,
                                            widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
 class UserPasswordChangeForm(forms.Form):
+    """ The form to handle user password change """
     old_password = forms.CharField(label='Old Password',
+                                   required=True, min_length=8, max_length=60,
                                    widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     new_password1 = forms.CharField(label='New Password',
+                                    required=True, min_length=8, max_length=60,
                                     widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     new_password2 = forms.CharField(label='Confirm New Password',
+                                    required=True, min_length=8, max_length=60,
                                     widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def __init__(self, user, *args, **kwargs):
