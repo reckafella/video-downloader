@@ -37,8 +37,6 @@
                 
                 {% if user.is_authenticated %}
                 <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid rounded-circle">
-                {% else %}
-               <!--  <img src="{% static 'assets/default.png' %}" alt="Profile Picture" class="img-fluid rounded-circle"> -->
                 {% endif %}
                 <h1 class="sitename">Video Downloader</h1>
             </a> 
